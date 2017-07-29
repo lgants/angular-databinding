@@ -16,6 +16,14 @@ export class AppComponent {
     });
   }
 
+  onChangeFirst() {
+    this.serverElements[0].name = 'Changed'
+  }
+
+  onDestroyFirst() {
+    this.serverElements.splice(0, 1);
+  }
+
   // onBlueprintAdded(blueprintData: {blueprintName: string, blueprintContent: string}) {
   //   this.blueprintElements.push({
   //     type: 'blueprint',

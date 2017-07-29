@@ -1,4 +1,16 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewEncapsulation,
+  SimpleChanges,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy
+} from '@angular/core';
 
 
 // encapsulation: ViewEncapsulation.None
@@ -17,14 +29,63 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 // by default, all properties inside a component are not accessible from outside the component; so, need to use a decorator (e.g. @Input()) to allow parent components to be able to bind to a property
 
-export class ServerElementComponent implements OnInit {
+// it's good practice, but not necessary, to implement an interface (i.e. add after 'implements' below using commas to seperate) whenever using that respective interface; also need to add to import object at top of TS file
+export class ServerElementComponent implements
+  OnInit,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked,
+  OnDestroy {
   // @Input() element: {type: string, name: string, content: string};
   // @Input also accepts a property name to use as an alias
   @Input('srvElement') element: {type: string, name: string, content: string};
+  @Input() name: string;
 
-  constructor() { }
+  constructor() {
 
+  }
+
+  // ngOnChanges is the only hook that receives an argument; it's of type SimpleChanges, which must also be imported - onChanges might not need to be imported
+  // called after a bound input property changes
+  ngOnChanges(changes: SimpleChanges){
+    console.log(changes)
+  }
+
+  // called once the component is initialized
   ngOnInit() {
   }
+
+  // called during ever change detection run
+  ngDoCheck() {
+    console.log('do check')
+  }
+
+  // called after content (ng-content) has been projected into the view
+  ngAfterContentInit(){
+    console.log('after content init')
+  }
+
+  // called everytime the project content is checked
+  ngAfterContentChecked(){
+    console.log('after content checked')
+  }
+
+  // called after the view (and child views) have been initialized
+  ngAfterViewInit(){
+    console.log('after content init')
+  }
+
+  // called everytime the view (and child views) have been checked
+  ngAfterViewChecked(){
+    console.log('after content checked')
+  }
+
+  // called once the component is about to be destroyed
+  ngOnDestroy(){
+    console.log('destroyed')
+  }
+
 
 }
