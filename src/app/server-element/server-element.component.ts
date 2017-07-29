@@ -11,7 +11,8 @@ import {
   AfterViewChecked,
   OnDestroy,
   ViewChild,
-  ElementRef
+  ElementRef,
+  ContentChild
 } from '@angular/core';
 
 
@@ -45,6 +46,9 @@ export class ServerElementComponent implements
   @Input('srvElement') element: {type: string, name: string, content: string};
   @Input() name: string;
   @ViewChild('heading') header: ElementRef;
+  // contentParagraph is the selector chosen in the html
+  // @ContentChild gives access to something that is stored in another component and passed on by ng-content
+  @ContentChild('contentParagraph') paragraph: ElementRef;
 
   constructor() {
 
@@ -53,43 +57,45 @@ export class ServerElementComponent implements
   // ngOnChanges is the only hook that receives an argument; it's of type SimpleChanges, which must also be imported - onChanges might not need to be imported
   // called after a bound input property changes
   ngOnChanges(changes: SimpleChanges){
-    console.log(changes)
+    console.log(changes);
   }
 
   // called once the component is initialized
   ngOnInit() {
     console.log('ngOnInit called');
-    console.log(this.header.nativeElement.textContent);
+    console.log('Text Content: ' + this.header.nativeElement.textContent);
+    console.log('Paragraph Content: ' + this.paragraph.nativeElement.textContent );
   }
 
   // called during ever change detection run
   ngDoCheck() {
-    console.log('do check')
+    console.log('do check');
   }
 
   // called after content (ng-content) has been projected into the view
   ngAfterContentInit(){
-    console.log('after content init')
+    console.log('after content init');
+    console.log('Paragraph Content: ' + this.paragraph.nativeElement.textContent );
   }
 
   // called everytime the project content is checked
   ngAfterContentChecked(){
-    console.log('after content checked')
+    console.log('after content checked');
   }
 
   // called after the view (and child views) have been initialized
   ngAfterViewInit(){
-    console.log('after content init')
+    console.log('after content init');
   }
 
   // called everytime the view (and child views) have been checked
   ngAfterViewChecked(){
-    console.log('after content checked')
+    console.log('after content checked');
   }
 
   // called once the component is about to be destroyed
   ngOnDestroy(){
-    console.log('destroyed')
+    console.log('destroyed');
   }
 
 
