@@ -9,7 +9,9 @@ import {
   AfterContentChecked,
   AfterViewInit,
   AfterViewChecked,
-  OnDestroy
+  OnDestroy,
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 
 
@@ -42,6 +44,7 @@ export class ServerElementComponent implements
   // @Input also accepts a property name to use as an alias
   @Input('srvElement') element: {type: string, name: string, content: string};
   @Input() name: string;
+  @ViewChild('heading') header: ElementRef;
 
   constructor() {
 
@@ -55,6 +58,8 @@ export class ServerElementComponent implements
 
   // called once the component is initialized
   ngOnInit() {
+    console.log('ngOnInit called');
+    console.log(this.header.nativeElement.textContent);
   }
 
   // called during ever change detection run
